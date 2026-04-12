@@ -165,6 +165,42 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-siz
 .band-item{font-family:'Caveat',cursive;font-size:1.1rem;color:rgba(223,182,178,0.5);white-space:nowrap}
 @keyframes slide{to{transform:translateX(-50%)}}
 
+/* ─── BOOKSHELF ─── */
+.shelf-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--rose);margin-bottom:1.8rem;font-weight:300}
+.shelf-wrap{position:relative;overflow-x:auto;overflow-y:visible;scrollbar-width:none;cursor:grab;padding-bottom:0}
+.shelf-wrap:active{cursor:grabbing}
+.shelf-wrap::-webkit-scrollbar{display:none}
+.shelf-books{display:flex;align-items:flex-end;gap:4px;padding:1rem 1rem 0;min-width:max-content;position:relative;z-index:1}
+.shelf-wood{height:18px;background:linear-gradient(180deg,#c4956a,#9e6b3e);border-radius:3px;box-shadow:0 4px 12px rgba(0,0,0,0.18);position:relative;z-index:2}
+.spine{
+  width:var(--sw);height:var(--sh);background:var(--sc);
+  display:flex;align-items:center;justify-content:center;
+  border-radius:2px 0 0 2px;
+  cursor:pointer;position:relative;
+  transition:transform .25s, filter .25s;
+  flex-shrink:0;
+  box-shadow:inset -3px 0 6px rgba(0,0,0,0.25), 2px 0 4px rgba(0,0,0,0.15);
+}
+.spine::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:rgba(255,255,255,0.06);border-radius:2px 0 0 2px
+}
+.spine:hover{transform:translateY(-12px) scaleX(1.05);filter:brightness(1.15);z-index:10}
+.spine span{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:'Cormorant Garamond',serif;font-size:10px;
+  color:rgba(255,255,255,0.82);letter-spacing:.08em;
+  padding:8px 0;line-height:1.2;font-weight:400;
+  overflow:hidden;max-height:calc(var(--sh) - 16px);
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;
+  text-overflow:ellipsis;white-space:nowrap;width:100%;text-align:center;padding:0 4px
+}
+.shelf-tooltip{
+  font-family:'Caveat',cursive;font-size:14px;color:var(--ink2);
+  margin-top:.8rem;min-height:20px;transition:opacity .2s;
+  letter-spacing:.02em
+}
+
 @media(max-width:680px){
   .hero{grid-template-columns:1fr;min-height:auto;padding-top:5rem}
   .hero-photo-col{height:auto;padding:1.5rem 1.5rem 0}
@@ -288,23 +324,23 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-siz
   <div class="r-grid">
     <div class="r-card">
       <div class="r-tag">ONGOING · IIT MADRAS</div>
-      <div class="r-title">PnP Nyström Attention</div>
-      <div class="r-desc">drop-in for softmax attention in ViT/SwinIR · memory-efficient super-resolution for edge deployment</div>
+      <div class="r-title">Efficient Attention Mechanisms for Vision Transformers</div>
+      <div class="r-desc">integrating PnP Nyström Attention as a drop-in for softmax attention in ViT & SwinIR · landmark-based approximation for memory-efficient image restoration at edge scale</div>
     </div>
     <div class="r-card">
-      <div class="r-tag">2025 · SUMMER FELLOWSHIP</div>
-      <div class="r-title">SwinIR Training Pipeline</div>
-      <div class="r-desc">reproducible PyTorch pipelines · PSNR/SSIM benchmarking · TensorBoard · full ablation protocols</div>
+      <div class="r-tag">HARDWARE · ESP8266</div>
+      <div class="r-title">Battery & Environment Monitoring System</div>
+      <div class="r-desc">real-time streaming of battery & environment params with dashboard visualization · low-power firmware with duty cycling & deep sleep · Wi-Fi telemetry via REST/MQTT · stack: Arduino/MicroPython, Blynk</div>
+    </div>
+    <div class="r-card">
+      <div class="r-tag">HARDWARE · ESP32 / OpenCV</div>
+      <div class="r-title">Automatic Number Plate Recognition Gate</div>
+      <div class="r-desc">camera capture + ANPR pipeline for automated gate access · relay control for barrier actuation · preprocessing optimized for low-light · stack: OpenCV, Python/C++, microcontroller I/O</div>
     </div>
     <div class="r-card">
       <div class="r-tag">FINAL YEAR PROJECT</div>
-      <div class="r-title">Autonomous Harvest Rover</div>
-      <div class="r-desc">Pure Pursuit path control + ML vision for gourd maturity detection · MATLAB/Simulink + Python</div>
-    </div>
-    <div class="r-card">
-      <div class="r-tag">HARDWARE</div>
-      <div class="r-title">ANPR Gate System</div>
-      <div class="r-desc">OpenCV number-plate recognition · ESP32 relay · low-power Wi-Fi telemetry firmware</div>
+      <div class="r-title">Autonomous Gourd Harvest Rover</div>
+      <div class="r-desc">Pure Pursuit + heading control for path tracking · ML vision model for maturity detection from color & texture · MATLAB/Simulink + Python simulation stack</div>
     </div>
   </div>
 </section>
@@ -400,11 +436,71 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-siz
   <div class="wins-hint">← drag to scroll →</div>
 </section>
 
+<!-- BAND BOOKS -->
+<div class="band">
+  <div class="band-inner" id="band4"></div>
+</div>
+
+<!-- BOOKSHELF -->
+<section class="sec reveal" id="books">
+  <div class="sec-hd">
+    <span class="sec-hd-text">on my shelf ✦</span>
+    <span class="sec-hd-mono">/ 05</span>
+    <div class="sec-hd-line"></div>
+  </div>
+  <div class="shelf-note">books that live in my head rent-free — tell me yours and we'll talk for hours</div>
+  <div class="shelf-wrap">
+    <div class="shelf-wood"></div>
+    <div class="shelf-books" id="shelf-books">
+
+      <div class="spine" style="--sc:#1a1a2e;--sw:38px;--sh:210px" data-title="The Name of the Wind" data-author="Patrick Rothfuss">
+        <span>The Name of the Wind</span>
+      </div>
+      <div class="spine" style="--sc:#5c3d2e;--sw:28px;--sh:195px" data-title="Kafka on the Shore" data-author="Murakami">
+        <span>Kafka on the Shore</span>
+      </div>
+      <div class="spine" style="--sc:#2d4a22;--sw:32px;--sh:205px" data-title="The Secret History" data-author="Donna Tartt">
+        <span>The Secret History</span>
+      </div>
+      <div class="spine" style="--sc:#7b2d8b;--sw:26px;--sh:185px" data-title="Giovanni's Room" data-author="James Baldwin">
+        <span>Giovanni's Room</span>
+      </div>
+      <div class="spine" style="--sc:#c0392b;--sw:42px;--sh:215px" data-title="The Master & Margarita" data-author="Bulgakov">
+        <span>The Master & Margarita</span>
+      </div>
+      <div class="spine" style="--sc:#1a3a5c;--sw:30px;--sh:200px" data-title="Pachinko" data-author="Min Jin Lee">
+        <span>Pachinko</span>
+      </div>
+      <div class="spine" style="--sc:#4a3728;--sw:24px;--sh:188px" data-title="Piranesi" data-author="Susanna Clarke">
+        <span>Piranesi</span>
+      </div>
+      <div class="spine" style="--sc:#1c5c4a;--sw:34px;--sh:208px" data-title="Normal People" data-author="Sally Rooney">
+        <span>Normal People</span>
+      </div>
+      <div class="spine" style="--sc:#6b2737;--sw:28px;--sh:192px" data-title="Crying in H Mart" data-author="Michelle Zauner">
+        <span>Crying in H Mart</span>
+      </div>
+      <div class="spine" style="--sc:#2c3e6e;--sw:36px;--sh:202px" data-title="The Midnight Library" data-author="Matt Haig">
+        <span>The Midnight Library</span>
+      </div>
+      <div class="spine" style="--sc:#5a4a00;--sw:22px;--sh:180px" data-title="On Earth We're Briefly Gorgeous" data-author="Ocean Vuong">
+        <span>On Earth We're Briefly Gorgeous</span>
+      </div>
+      <div class="spine" style="--sc:#3b1f5e;--sw:30px;--sh:196px" data-title="A Little Life" data-author="Hanya Yanagihara">
+        <span>A Little Life</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="shelf-tooltip" id="shelf-tooltip"></div>
+  <div class="wins-hint">← hover a spine · drag to browse →</div>
+</section>
+
 <!-- CONTACT -->
 <section class="sec reveal" id="contact">
   <div class="sec-hd">
     <span class="sec-hd-text">say hi ✧</span>
-    <span class="sec-hd-mono">/ 05</span>
+    <span class="sec-hd-mono">/ 06</span>
     <div class="sec-hd-line"></div>
   </div>
   <div class="contact-wrap">
@@ -431,7 +527,7 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-siz
 const bands = [
   "electrical engineer","graphic designer","writer","reader","✦","researcher","IEEE volunteer","✧","vision transformers","PnP Nyström","IIT Madras","CET","magic & chaos","✦"
 ];
-['band','band2','band3'].forEach(id => {
+['band','band2','band3','band4'].forEach(id => {
   const el = document.getElementById(id);
   const all = [...bands,...bands,...bands,...bands];
   el.innerHTML = all.map(s => `<span class="band-item">${s}</span>`).join('&nbsp;&nbsp;·&nbsp;&nbsp;');
@@ -448,6 +544,24 @@ ws.addEventListener('mousedown', e=>{down=true;sx=e.pageX-ws.offsetLeft;sl=ws.sc
 ws.addEventListener('mouseleave',()=>down=false);
 ws.addEventListener('mouseup',()=>down=false);
 ws.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();ws.scrollLeft=sl-(e.pageX-ws.offsetLeft-sx)*1.5});
+
+// bookshelf drag scroll
+const sw = document.querySelector('.shelf-wrap');
+let sdown=false,ssx,ssl;
+sw.addEventListener('mousedown',e=>{sdown=true;ssx=e.pageX-sw.offsetLeft;ssl=sw.scrollLeft});
+sw.addEventListener('mouseleave',()=>sdown=false);
+sw.addEventListener('mouseup',()=>sdown=false);
+sw.addEventListener('mousemove',e=>{if(!sdown)return;e.preventDefault();sw.scrollLeft=ssl-(e.pageX-sw.offsetLeft-ssx)*1.5});
+
+// spine tooltips
+const tooltip = document.getElementById('shelf-tooltip');
+document.querySelectorAll('.spine').forEach(spine => {
+  spine.addEventListener('mouseenter', () => {
+    const t = spine.dataset.title, a = spine.dataset.author;
+    tooltip.textContent = `✦ ${t} — ${a}`;
+  });
+  spine.addEventListener('mouseleave', () => { tooltip.textContent = ''; });
+});
 </script>
 </body>
 </html>
