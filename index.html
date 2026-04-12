@@ -3,396 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anvitha Vinod — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<title>Anvitha Vinod</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  :root{
-    --g:#5dca91;--bg:#080808;--bg2:#0e0e0e;--bg3:#141414;
-    --t1:#ede8dc;--t2:#888;--t3:#444;--border:#1e1e1e;
-  }
-  html{scroll-behavior:smooth}
-  body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--t2);min-height:100vh;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --c1:#190019;--c2:#2B124C;--c3:#522B5B;
+  --c4:#854F6C;--c5:#DFB6B2;--c6:#FBE4D8;
+  --acc:#c97aaa;--bright:#e8b4d0;
+}
+html{scroll-behavior:smooth}
+body{background:var(--c1);color:var(--c5);font-family:'DM Mono',monospace;overflow-x:hidden}
 
-  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.05) 3px,rgba(0,0,0,0.05) 4px);pointer-events:none;z-index:999}
+/* noise */
+body::before{content:'';position:fixed;inset:0;opacity:.35;pointer-events:none;z-index:1000;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
 
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,8,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-  .nav-id{font-size:12px;color:var(--g);letter-spacing:.15em}
-  .nav-links{display:flex;gap:2rem;list-style:none}
-  .nav-links a{font-size:10px;color:var(--t3);text-decoration:none;letter-spacing:.12em;transition:color .2s}
-  .nav-links a:hover{color:var(--g)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;background:rgba(25,0,25,0.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(82,43,91,0.3)}
+.nav-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:var(--bright);letter-spacing:.02em}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{font-size:9px;letter-spacing:.16em;color:var(--c4);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--bright)}
 
-  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 2rem;max-width:900px;margin:0 auto}
-  .hero-pre{font-size:11px;color:var(--g);letter-spacing:.2em;margin-bottom:1.5rem;opacity:0;animation:fadeup .6s .2s forwards}
-  .hero-name{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,10vw,7rem);color:var(--t1);line-height:.95;letter-spacing:-.02em;opacity:0;animation:fadeup .6s .4s forwards}
-  .hero-name em{font-style:italic;color:var(--g)}
-  .hero-desc{font-size:12px;color:var(--t3);max-width:440px;line-height:1.9;margin-top:1.8rem;opacity:0;animation:fadeup .6s .6s forwards}
-  .hero-pills{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.5rem;opacity:0;animation:fadeup .6s .8s forwards}
-  .pill{font-size:9px;letter-spacing:.12em;border:1px solid var(--border);padding:5px 12px;color:var(--t3);transition:all .2s;cursor:default}
-  .pill:hover{border-color:var(--g);color:var(--g)}
-  .hero-prompt{margin-top:2.5rem;font-size:12px;color:var(--g);display:flex;align-items:center;gap:.4rem;opacity:0;animation:fadeup .6s 1s forwards}
-  .cursor{display:inline-block;width:8px;height:14px;background:var(--g);animation:blink 1s step-end infinite;vertical-align:middle}
-  @keyframes blink{50%{opacity:0}}
-  @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 2.5rem 4rem;max-width:1000px;margin:0 auto;position:relative}
 
-  section{padding:5rem 2rem;max-width:900px;margin:0 auto}
-  .sec-header{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem}
-  .sec-label{font-size:10px;color:var(--g);letter-spacing:.2em;white-space:nowrap}
-  .sec-line{flex:1;height:1px;background:var(--border)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:drift 9s ease-in-out infinite alternate}
+.b1{width:380px;height:380px;background:rgba(43,18,76,0.75);top:-80px;right:-100px}
+.b2{width:240px;height:240px;background:rgba(82,43,91,0.55);bottom:100px;right:100px;animation-delay:-3.5s}
+.b3{width:180px;height:180px;background:rgba(133,79,108,0.35);top:220px;left:-80px;animation-delay:-6s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(22px,28px) scale(1.07)}}
 
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--border)}
-  .about-cell{padding:1.4rem;background:var(--bg2)}
-  .about-cell.full{grid-column:1/-1;border-bottom:1px solid var(--border)}
-  .cell-label{font-size:9px;color:var(--g);letter-spacing:.15em;margin-bottom:.6rem}
-  .cell-val{font-size:12px;color:var(--t1);line-height:1.8}
-  .cell-val.muted{color:var(--t2);font-size:11px}
+.eyebrow{font-size:9px;letter-spacing:.3em;color:var(--c4);margin-bottom:1.5rem;opacity:0;animation:up .6s .2s forwards}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3.8rem,11vw,8.5rem);line-height:.88;letter-spacing:-.02em;color:var(--c6);font-weight:400;opacity:0;animation:up .7s .35s forwards}
+.hero-name .it{font-style:italic;color:var(--bright)}
+.hero-roles{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:2rem;opacity:0;animation:up .6s .55s forwards}
+.role-tag{font-size:9px;letter-spacing:.1em;border:1px solid rgba(133,79,108,0.35);padding:5px 13px;border-radius:100px;color:var(--c5);background:rgba(43,18,76,0.4);transition:all .25s;cursor:default}
+.role-tag:hover{background:rgba(82,43,91,0.55);border-color:var(--acc);color:var(--bright);transform:translateY(-2px)}
+.hero-desc{font-size:11px;color:var(--c4);line-height:2.1;max-width:460px;margin-top:1.8rem;opacity:0;animation:up .6s .7s forwards}
+.hero-cta{display:flex;gap:.8rem;margin-top:2.2rem;flex-wrap:wrap;opacity:0;animation:up .6s .9s forwards}
+.btn{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;padding:10px 22px;text-decoration:none;transition:all .25s;border-radius:4px;cursor:pointer;border:none;display:inline-block}
+.btn-fill{background:var(--c3);color:var(--c6);border:1px solid var(--c3)}
+.btn-fill:hover{background:var(--c4);border-color:var(--c4);transform:translateY(-2px)}
+.btn-out{background:transparent;color:var(--c5);border:1px solid rgba(133,79,108,0.4)}
+.btn-out:hover{border-color:var(--acc);color:var(--bright);transform:translateY(-2px)}
+.blink{display:inline-block;width:3px;height:.85em;background:var(--bright);vertical-align:middle;margin-left:4px;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 
-  .ach-list{border:1px solid var(--border)}
-  .ach-item{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);transition:background .2s;cursor:default}
-  .ach-item:last-child{border-bottom:none}
-  .ach-item:hover{background:var(--bg3)}
-  .ach-year{padding:1.1rem 1rem;font-size:10px;color:var(--g);border-right:1px solid var(--border);display:flex;align-items:flex-start;padding-top:1.15rem;letter-spacing:.08em}
-  .ach-body{padding:1rem 1.2rem}
-  .ach-title{font-size:12px;color:var(--t1);margin-bottom:3px;line-height:1.4}
-  .ach-sub{font-size:10px;color:var(--t3);line-height:1.6}
+/* MARQUEE */
+.mq-wrap{border-top:1px solid rgba(82,43,91,0.3);border-bottom:1px solid rgba(82,43,91,0.3);padding:.75rem 0;overflow:hidden;background:rgba(43,18,76,0.18)}
+.mq-inner{display:flex;width:max-content;animation:slide 24s linear infinite}
+.mq-inner:hover{animation-play-state:paused}
+.mq-item{display:flex;align-items:center;gap:.6rem;padding:0 2rem;font-size:9px;letter-spacing:.14em;color:var(--c4);white-space:nowrap;cursor:default;transition:color .2s}
+.mq-item:hover{color:var(--bright)}
+.mq-dot{width:3px;height:3px;background:var(--c3);border-radius:50%;flex-shrink:0}
+@keyframes slide{to{transform:translateX(-50%)}}
 
-  .research-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;border:1px solid var(--border)}
-  .r-card{padding:1.4rem;background:var(--bg2);border-right:1px solid var(--border);transition:background .2s;cursor:default}
-  .r-card:last-child{border-right:none}
-  .r-card:hover{background:var(--bg3)}
-  .r-tag{font-size:9px;color:var(--g);letter-spacing:.15em;margin-bottom:.7rem}
-  .r-title{font-size:12px;color:var(--t1);margin-bottom:.5rem;line-height:1.5}
-  .r-desc{font-size:11px;color:var(--t3);line-height:1.7}
+/* SECTIONS */
+.sec{padding:5.5rem 2.5rem;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:center;gap:1rem;margin-bottom:2.8rem}
+.sec-hd::after{content:'';flex:1;height:1px;background:rgba(82,43,91,0.3)}
+.sec-hd span{font-size:8px;letter-spacing:.25em;color:var(--acc);white-space:nowrap}
 
-  .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.8rem 0;overflow:hidden}
-  .marquee-track{display:flex;gap:2.5rem;width:max-content;animation:marquee 22s linear infinite}
-  .marquee-track:hover{animation-play-state:paused}
-  .m-item{font-size:10px;color:var(--t3);letter-spacing:.1em;display:flex;align-items:center;gap:.5rem;white-space:nowrap}
-  .m-dot{width:4px;height:4px;background:var(--g);border-radius:50%;flex-shrink:0}
-  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* ABOUT */
+.ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid rgba(82,43,91,0.25)}
+.ab-cell{padding:1.5rem;background:rgba(43,18,76,0.22);transition:background .3s}
+.ab-cell:hover{background:rgba(82,43,91,0.18)}
+.ab-cell.wide{grid-column:1/-1;border-bottom:1px solid rgba(82,43,91,0.25)}
+.ctag{font-size:8px;letter-spacing:.2em;color:var(--acc);margin-bottom:.8rem}
+.cbody{font-size:11px;color:var(--c5);line-height:2}
+.cbody.dim{color:var(--c4)}
+.hl{color:var(--bright);font-style:italic}
 
-  .lead-list{border:1px solid var(--border)}
-  .lead-item{display:grid;grid-template-columns:1fr auto;align-items:start;padding:1rem 1.2rem;border-bottom:1px solid var(--border);gap:1rem;transition:background .2s;cursor:default}
-  .lead-item:last-child{border-bottom:none}
-  .lead-item:hover{background:var(--bg3)}
-  .lead-role{font-size:12px;color:var(--t1);margin-bottom:3px}
-  .lead-org{font-size:10px;color:var(--t3)}
-  .lead-period{font-size:10px;color:var(--g);white-space:nowrap;text-align:right;padding-top:2px}
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{padding:1.4rem;background:rgba(43,18,76,0.28);border:1px solid rgba(82,43,91,0.25);border-radius:8px;transition:all .3s;cursor:default;position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(133,79,108,0.1),transparent);opacity:0;transition:opacity .3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(133,79,108,0.5)}
+.card:hover::after{opacity:1}
+.ctag2{font-size:8px;letter-spacing:.16em;color:var(--acc);margin-bottom:.7rem}
+.ctitle{font-family:'Playfair Display',serif;font-size:15px;color:var(--c6);margin-bottom:.6rem;line-height:1.4;font-weight:400}
+.cdesc{font-size:10px;color:var(--c4);line-height:1.9}
 
-  .int-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;border:1px solid var(--border)}
-  .int-cell{padding:1.4rem 1rem;background:var(--bg2);text-align:center;transition:background .2s;cursor:default}
-  .int-cell:hover{background:var(--bg3)}
-  .int-icon{font-size:16px;margin-bottom:.5rem;color:var(--g)}
-  .int-name{font-size:11px;color:var(--t1);margin-bottom:3px}
-  .int-sub{font-size:10px;color:var(--t3);line-height:1.5}
+/* ACHIEVEMENTS */
+.ach-list{border:1px solid rgba(82,43,91,0.25);border-radius:8px;overflow:hidden}
+.ach-item{display:grid;grid-template-columns:78px 1fr;border-bottom:1px solid rgba(82,43,91,0.2);transition:background .25s;cursor:default}
+.ach-item:last-child{border-bottom:none}
+.ach-item:hover{background:rgba(82,43,91,0.13)}
+.ach-yr{padding:1rem .8rem;font-size:8px;color:var(--acc);border-right:1px solid rgba(82,43,91,0.2);display:flex;align-items:flex-start;padding-top:1.1rem;letter-spacing:.07em}
+.ach-body{padding:.9rem 1.2rem}
+.ach-t{font-size:11px;color:var(--c6);margin-bottom:3px;line-height:1.4}
+.ach-s{font-size:9px;color:var(--c4);line-height:1.7}
 
-  .contact-links{display:flex;gap:.8rem;flex-wrap:wrap}
-  .c-link{font-size:10px;letter-spacing:.1em;border:1px solid var(--border);padding:8px 18px;color:var(--t3);text-decoration:none;transition:all .2s}
-  .c-link:hover{color:var(--g);border-color:var(--g)}
-  .c-email{font-size:12px;color:var(--t3);margin-bottom:1.2rem;display:block}
+/* LEADERSHIP */
+.lead-list{border:1px solid rgba(82,43,91,0.25);border-radius:8px;overflow:hidden}
+.lead-item{display:grid;grid-template-columns:1fr auto;padding:.9rem 1.2rem;border-bottom:1px solid rgba(82,43,91,0.2);gap:1rem;align-items:start;transition:background .25s;cursor:default}
+.lead-item:last-child{border-bottom:none}
+.lead-item:hover{background:rgba(82,43,91,0.13)}
+.lead-r{font-size:11px;color:var(--c6);margin-bottom:3px}
+.lead-o{font-size:9px;color:var(--c4);line-height:1.6}
+.lead-y{font-size:9px;color:var(--acc);white-space:nowrap;text-align:right;padding-top:2px}
 
-  footer{border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--t3);letter-spacing:.08em;max-width:100%}
-  .full-divider{border:none;border-top:1px solid var(--border)}
+/* CONTACT */
+.c-email{font-size:12px;color:var(--c5);letter-spacing:.05em;margin-bottom:1.2rem;display:block}
+.c-links{display:flex;gap:.7rem;flex-wrap:wrap}
+.c-link{font-size:9px;letter-spacing:.13em;border:1px solid rgba(82,43,91,0.4);padding:9px 20px;color:var(--c4);text-decoration:none;border-radius:100px;transition:all .25s}
+.c-link:hover{color:var(--bright);border-color:var(--acc);background:rgba(82,43,91,0.25);transform:translateY(-2px)}
 
-  @media(max-width:600px){
-    .nav-links{gap:1rem}
-    .about-grid{grid-template-columns:1fr}
-    .about-cell.full{grid-column:1}
-    .about-cell{border-bottom:1px solid var(--border)}
-    footer{flex-direction:column;gap:.5rem;text-align:center}
-  }
+footer{border-top:1px solid rgba(82,43,91,0.25);padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:9px;color:rgba(133,79,108,0.45);letter-spacing:.1em}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s,transform .75s}
+.reveal.on{opacity:1;transform:none}
+hr.dv{border:none;border-top:1px solid rgba(82,43,91,0.2)}
+
+@media(max-width:620px){
+  .ab-grid{grid-template-columns:1fr}
+  .ab-cell.wide{grid-column:1;border-bottom:1px solid rgba(82,43,91,.25)}
+  .ab-cell{border-bottom:1px solid rgba(82,43,91,.15)}
+  nav{padding:1rem 1.5rem}
+  .hero{padding:6rem 1.5rem 3rem}
+  .sec{padding:4rem 1.5rem}
+  footer{flex-direction:column;gap:.5rem;text-align:center}
+  .nav-links{gap:1rem}
+}
 </style>
 </head>
 <body>
 
 <nav>
-  <span class="nav-id">anvitha@vinod:~$</span>
+  <span class="nav-logo">anvitha<span class="blink"></span></span>
   <ul class="nav-links">
     <li><a href="#about">about</a></li>
     <li><a href="#research">research</a></li>
-    <li><a href="#achievements">achievements</a></li>
-    <li><a href="#leadership">leadership</a></li>
+    <li><a href="#ach">wins</a></li>
+    <li><a href="#roles">roles</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-pre">// Kerala, India &nbsp;&middot;&nbsp; CET &nbsp;&middot;&nbsp; IIT Madras</div>
-  <div class="hero-name">Anvitha<br><em>Vinod</em></div>
-  <div class="hero-desc">Final-year EEE student at CET. Research intern at IIT Madras working on efficient transformer architectures and attention approximation. GPA&nbsp;9.74.</div>
-  <div class="hero-pills">
-    <span class="pill">VISION TRANSFORMERS</span>
-    <span class="pill">CONTROL SYSTEMS</span>
-    <span class="pill">IEEE VOLUNTEER</span>
-    <span class="pill">WRITER</span>
-    <span class="pill">GRAPHIC DESIGN</span>
-    <span class="pill">EMBEDDED SYSTEMS</span>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="eyebrow">Kerala, India &nbsp;&#183;&nbsp; CET &nbsp;&#183;&nbsp; IIT Madras</div>
+  <div class="hero-name">Anvitha<br><span class="it">Vinod</span></div>
+  <div class="hero-roles">
+    <span class="role-tag">&#10022; Electrical Engineer</span>
+    <span class="role-tag">&#9998; Graphic Designer</span>
+    <span class="role-tag">&#10023; Writer</span>
+    <span class="role-tag">&#9679; Reader</span>
+    <span class="role-tag">&#9733; IEEE Volunteer</span>
+    <span class="role-tag">&#9672; Researcher</span>
   </div>
-  <div class="hero-prompt">anvitha@research:~$ ./portfolio.sh<span class="cursor"></span></div>
+  <div class="hero-desc">Final-year EEE at CET. Research intern at IIT Madras —<br>efficient transformers, attention approximation, image restoration.<br>Also writes things on Medium. Reads more things everywhere.</div>
+  <div class="hero-cta">
+    <a class="btn btn-fill" href="#research">view research</a>
+    <a class="btn btn-out" href="https://medium.com/@anvithavinod24" target="_blank">read my writing &#8599;</a>
+  </div>
 </div>
 
-<hr class="full-divider">
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-inner" id="mq"></div>
+</div>
+
+<hr class="dv">
 
 <!-- ABOUT -->
-<section id="about">
-  <div class="sec-header">
-    <span class="sec-label">01 / ABOUT</span>
-    <div class="sec-line"></div>
-  </div>
-  <div class="about-grid">
-    <div class="about-cell full">
-      <div class="cell-label">BIO</div>
-      <div class="cell-val muted">B.Tech Electrical &amp; Electronics Engineering, College of Engineering Trivandrum (2022–2026), with Minors in Computer Science. Research intern at IIT Madras exploring computationally efficient transformer architectures — specifically Plug-and-Play Nyström Attention — for image restoration and super-resolution. At the intersection of control systems, deep learning, and intelligent automation.</div>
+<section class="sec reveal" id="about">
+  <div class="sec-hd"><span>01 &nbsp;/&nbsp; ABOUT</span></div>
+  <div class="ab-grid">
+    <div class="ab-cell wide">
+      <div class="ctag">BIO</div>
+      <div class="cbody dim">B.Tech <span class="hl">Electrical &amp; Electronics Engineering</span> at College of Engineering Trivandrum (2022–2026) with Minors in Computer Science. Research intern at IIT Madras working on <span class="hl">Plug-and-Play Nyström Attention</span> — making transformers leaner and faster. Also a graphic designer, compulsive reader, and occasional writer who thinks deeply about how things work — machines and otherwise.</div>
     </div>
-    <div class="about-cell" style="border-right:1px solid var(--border)">
-      <div class="cell-label">EDUCATION</div>
-      <div class="cell-val">CET Trivandrum<br><span style="color:var(--t3);font-size:11px">B.Tech EEE + CS Minor · 2022–2026</span><br><span style="color:var(--g);font-size:11px;margin-top:4px;display:block">GPA: 9.74 / 10</span></div>
+    <div class="ab-cell" style="border-right:1px solid rgba(82,43,91,0.25)">
+      <div class="ctag">EDUCATION</div>
+      <div class="cbody">CET Trivandrum<br><span style="color:var(--c4);font-size:10px">B.Tech EEE + CS Minor · 2022–2026</span></div>
     </div>
-    <div class="about-cell">
-      <div class="cell-label">STACK</div>
-      <div class="cell-val" style="font-size:11px;color:var(--t3);line-height:2">Python &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; MATLAB<br>Simulink &nbsp;·&nbsp; CUDA &nbsp;·&nbsp; LaTeX<br>Arduino &nbsp;·&nbsp; Figma &nbsp;·&nbsp; SQL</div>
+    <div class="ab-cell">
+      <div class="ctag">TOOLS</div>
+      <div class="cbody" style="font-size:10px;color:var(--c4);line-height:2.2">Python &nbsp;&#183;&nbsp; PyTorch &nbsp;&#183;&nbsp; MATLAB<br>Simulink &nbsp;&#183;&nbsp; CUDA &nbsp;&#183;&nbsp; LaTeX<br>Figma &nbsp;&#183;&nbsp; Photoshop &nbsp;&#183;&nbsp; SQL</div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track" id="mt"></div>
-</div>
-
-<hr class="full-divider">
+<hr class="dv">
 
 <!-- RESEARCH -->
-<section id="research">
-  <div class="sec-header">
-    <span class="sec-label">02 / RESEARCH &amp; PROJECTS</span>
-    <div class="sec-line"></div>
-  </div>
-  <div class="research-cards">
-    <div class="r-card">
-      <div class="r-tag">ONGOING &middot; IIT MADRAS</div>
-      <div class="r-title">PnP Nyström Attention — Transformer Efficiency</div>
-      <div class="r-desc">Plug-and-Play Nyström Attention as a drop-in for softmax attention in ViT/SwinIR. Focus on memory-efficient image super-resolution and denoising for edge deployment.</div>
+<section class="sec reveal" id="research">
+  <div class="sec-hd"><span>02 &nbsp;/&nbsp; RESEARCH &amp; PROJECTS</span></div>
+  <div class="cards">
+    <div class="card">
+      <div class="ctag2">ONGOING &middot; IIT MADRAS</div>
+      <div class="ctitle">PnP Nyström Attention</div>
+      <div class="cdesc">Drop-in replacement for softmax attention in ViT/SwinIR. Memory-efficient image super-resolution and denoising for edge deployment.</div>
     </div>
-    <div class="r-card">
-      <div class="r-tag">2025 &middot; SUMMER FELLOWSHIP</div>
-      <div class="r-title">SwinIR Training Pipeline with PnP Nyström</div>
-      <div class="r-desc">Built reproducible PyTorch training &amp; evaluation pipelines; PSNR/SSIM-oriented benchmarking. Modular JSON configs, TensorBoard tracking, ablation protocols.</div>
+    <div class="card">
+      <div class="ctag2">2025 &middot; SUMMER FELLOWSHIP</div>
+      <div class="ctitle">SwinIR Training Pipeline</div>
+      <div class="cdesc">Reproducible PyTorch pipelines with PSNR/SSIM benchmarking, modular JSON configs, TensorBoard tracking, full ablation protocols.</div>
     </div>
-    <div class="r-card">
-      <div class="r-tag">FINAL YEAR PROJECT</div>
-      <div class="r-title">Autonomous Gourd Harvesting Rover</div>
-      <div class="r-desc">Pure Pursuit + heading control for path tracking. ML vision model for gourd maturity detection from color/texture. MATLAB/Simulink + Python simulation stack.</div>
+    <div class="card">
+      <div class="ctag2">FINAL YEAR PROJECT</div>
+      <div class="ctitle">Autonomous Harvest Rover</div>
+      <div class="cdesc">Pure Pursuit path control + ML vision model for gourd maturity detection from color and texture. MATLAB/Simulink + Python stack.</div>
     </div>
-    <div class="r-card">
-      <div class="r-tag">EMBEDDED</div>
-      <div class="r-title">ANPR Gate System &amp; IoT Monitor</div>
-      <div class="r-desc">OpenCV-based number plate recognition with ESP32 relay control. Battery &amp; environment telemetry over Wi-Fi with low-power firmware (deep sleep, duty cycling).</div>
+    <div class="card">
+      <div class="ctag2">HARDWARE</div>
+      <div class="ctitle">ANPR Gate &amp; IoT Monitor</div>
+      <div class="cdesc">OpenCV number-plate recognition with ESP32 relay actuation. Low-power Wi-Fi telemetry with deep-sleep and duty cycling firmware.</div>
     </div>
   </div>
 </section>
 
-<hr class="full-divider">
+<hr class="dv">
 
 <!-- ACHIEVEMENTS -->
-<section id="achievements">
-  <div class="sec-header">
-    <span class="sec-label">03 / ACHIEVEMENTS</span>
-    <div class="sec-line"></div>
-  </div>
+<section class="sec reveal" id="ach">
+  <div class="sec-hd"><span>03 &nbsp;/&nbsp; WINS</span></div>
   <div class="ach-list">
-    <div class="ach-item">
-      <div class="ach-year">OCT 2025</div>
-      <div class="ach-body">
-        <div class="ach-title">Best WiE Team — IEEE R10 Innovation Challenge</div>
-        <div class="ach-sub">Kota Kinabalu, Malaysia &nbsp;&middot;&nbsp; Presented AIRAFEMM, AI-powered menstrual health tracking app</div>
-      </div>
-    </div>
-    <div class="ach-item">
-      <div class="ach-year">AUG 2025</div>
-      <div class="ach-body">
-        <div class="ach-title">IEEE YESIST12 — Global Finalist (WePOWER Track)</div>
-        <div class="ach-sub">Top 30 teams worldwide &nbsp;&middot;&nbsp; UKM Bangi, Malaysia &nbsp;&middot;&nbsp; Solar-Powered Agricultural Monitoring System</div>
-      </div>
-    </div>
-    <div class="ach-item">
-      <div class="ach-year">JUL 2025</div>
-      <div class="ach-body">
-        <div class="ach-title">Parent–Teacher Association Award — First Rank, 2nd Year EEE</div>
-        <div class="ach-sub">College of Engineering Trivandrum &nbsp;&middot;&nbsp; Department topper</div>
-      </div>
-    </div>
-    <div class="ach-item">
-      <div class="ach-year">APR 2025</div>
-      <div class="ach-body">
-        <div class="ach-title">Prof. Jaijith Memorial Endowment (CETAA Award)</div>
-        <div class="ach-sub">Highest aggregate up to 4th semester in EEE, no backlogs</div>
-      </div>
-    </div>
-    <div class="ach-item">
-      <div class="ach-year">DEC 2024</div>
-      <div class="ach-body">
-        <div class="ach-title">Outstanding Volunteer Award — IEEE Smart Cities SMC</div>
-        <div class="ach-sub">Recognized for impactful design and IEEE brand compliance</div>
-      </div>
-    </div>
-    <div class="ach-item">
-      <div class="ach-year">OCT 2024</div>
-      <div class="ach-body">
-        <div class="ach-title">1st Place — Business Proposal, Young Idea Conclave (IEDC CET)</div>
-        <div class="ach-sub">Disaster-management solution and campaign</div>
-      </div>
-    </div>
-    <div class="ach-item">
-      <div class="ach-year">MAR 2024</div>
-      <div class="ach-body">
-        <div class="ach-title">Empower Women Entrepreneurship Workshop — VSSC &amp; ISRO IISU</div>
-        <div class="ach-sub">Top 8 nationwide &nbsp;&middot;&nbsp; Presented AeroGreenHarvest for plant-disease management</div>
-      </div>
-    </div>
-    <div class="ach-item">
-      <div class="ach-year">DEC 2023</div>
-      <div class="ach-body">
-        <div class="ach-title">Allianz Tech Championship — Winner (Top 8 nationally)</div>
-        <div class="ach-sub">Gamified sustainability app &nbsp;&middot;&nbsp; £5,000 scholarship</div>
-      </div>
-    </div>
+    <div class="ach-item"><div class="ach-yr">OCT 2025</div><div class="ach-body"><div class="ach-t">Best WiE Team — IEEE R10 Innovation Challenge</div><div class="ach-s">Kota Kinabalu, Malaysia &nbsp;&#183;&nbsp; AIRAFEMM: AI-powered menstrual health app</div></div></div>
+    <div class="ach-item"><div class="ach-yr">AUG 2025</div><div class="ach-body"><div class="ach-t">IEEE YESIST12 — Global Finalist, WePOWER Track</div><div class="ach-s">Top 30 worldwide &nbsp;&#183;&nbsp; UKM Bangi, Malaysia &nbsp;&#183;&nbsp; Solar-Powered Agricultural Monitoring System</div></div></div>
+    <div class="ach-item"><div class="ach-yr">JUL 2025</div><div class="ach-body"><div class="ach-t">PTA Award — First Rank, 2nd Year EEE</div><div class="ach-s">College of Engineering Trivandrum &nbsp;&#183;&nbsp; Department topper</div></div></div>
+    <div class="ach-item"><div class="ach-yr">APR 2025</div><div class="ach-body"><div class="ach-t">Prof. Jaijith Memorial Endowment (CETAA Award)</div><div class="ach-s">Highest aggregate up to 4th semester, EEE — no backlogs</div></div></div>
+    <div class="ach-item"><div class="ach-yr">DEC 2024</div><div class="ach-body"><div class="ach-t">Outstanding Volunteer — IEEE Smart Cities SMC</div><div class="ach-s">Impactful design and IEEE brand compliance</div></div></div>
+    <div class="ach-item"><div class="ach-yr">OCT 2024</div><div class="ach-body"><div class="ach-t">1st Place — Business Proposal, Young Idea Conclave (IEDC CET)</div><div class="ach-s">Disaster-management solution and campaign</div></div></div>
+    <div class="ach-item"><div class="ach-yr">MAR 2024</div><div class="ach-body"><div class="ach-t">Empower Workshop — VSSC &amp; ISRO IISU</div><div class="ach-s">Top 8 nationally &nbsp;&#183;&nbsp; AeroGreenHarvest for sustainable plant-disease management</div></div></div>
+    <div class="ach-item"><div class="ach-yr">DEC 2023</div><div class="ach-body"><div class="ach-t">Allianz Tech Championship — Winner, Top 8 nationally</div><div class="ach-s">Gamified sustainability app &nbsp;&#183;&nbsp; £5,000 scholarship</div></div></div>
   </div>
 </section>
 
-<hr class="full-divider">
+<hr class="dv">
 
-<!-- LEADERSHIP -->
-<section id="leadership">
-  <div class="sec-header">
-    <span class="sec-label">04 / LEADERSHIP</span>
-    <div class="sec-line"></div>
-  </div>
+<!-- ROLES -->
+<section class="sec reveal" id="roles">
+  <div class="sec-hd"><span>04 &nbsp;/&nbsp; ROLES</span></div>
   <div class="lead-list">
-    <div class="lead-item">
-      <div>
-        <div class="lead-role">Chairperson, IEEE Student Branch CET</div>
-        <div class="lead-org">Led technical excellence, research, and innovation initiatives</div>
-      </div>
-      <div class="lead-period">2025–2026</div>
-    </div>
-    <div class="lead-item">
-      <div>
-        <div class="lead-role">Women in Power Student Rep — IEEE PES Kerala Chapter</div>
-        <div class="lead-org">Promoted women in engineering; organized section-level events</div>
-      </div>
-      <div class="lead-period">2025–2026</div>
-    </div>
-    <div class="lead-item">
-      <div>
-        <div class="lead-role">Chairperson — IEEE PES Student Branch Chapter, CET</div>
-        <div class="lead-org">Outstanding SBC Award &nbsp;&middot;&nbsp; 34% membership growth &nbsp;&middot;&nbsp; IEEE PES Solar Schools initiative</div>
-      </div>
-      <div class="lead-period">2024–2025</div>
-    </div>
-    <div class="lead-item">
-      <div>
-        <div class="lead-role">Student Rep, Travancore Hub — IEEE PES Kerala Chapter</div>
-        <div class="lead-org">Fostered collaboration across student branches at Kerala Section</div>
-      </div>
-      <div class="lead-period">2024–2025</div>
-    </div>
-    <div class="lead-item">
-      <div>
-        <div class="lead-role">Secretary — IEEE PES Student Branch Chapter, CET</div>
-        <div class="lead-org">$2,000 MDI funding secured &nbsp;&middot;&nbsp; 80% membership growth</div>
-      </div>
-      <div class="lead-period">2023–2024</div>
-    </div>
-    <div class="lead-item">
-      <div>
-        <div class="lead-role">Magazine Design Lead — Rashomon 2024, CET</div>
-        <div class="lead-org">Visual design for the official college magazine</div>
-      </div>
-      <div class="lead-period">2024</div>
-    </div>
-    <div class="lead-item">
-      <div>
-        <div class="lead-role">Design Lead — IEEE Smart Cities Social Media Committee</div>
-        <div class="lead-org">Visual content creation for digital and print media; IEEE brand compliance</div>
-      </div>
-      <div class="lead-period">2023–2025</div>
-    </div>
+    <div class="lead-item"><div><div class="lead-r">Chairperson — IEEE Student Branch CET</div><div class="lead-o">Technical excellence, research, and innovation</div></div><div class="lead-y">2025–26</div></div>
+    <div class="lead-item"><div><div class="lead-r">Women in Power Student Rep — IEEE PES Kerala</div><div class="lead-o">Promoted women in engineering; section-level events</div></div><div class="lead-y">2025–26</div></div>
+    <div class="lead-item"><div><div class="lead-r">Chairperson — IEEE PES SBC, CET</div><div class="lead-o">Outstanding SBC Award &nbsp;&#183;&nbsp; 34% membership growth &nbsp;&#183;&nbsp; Solar Schools initiative</div></div><div class="lead-y">2024–25</div></div>
+    <div class="lead-item"><div><div class="lead-r">Student Rep, Travancore Hub — IEEE PES Kerala</div><div class="lead-o">Coordination across student branches at Kerala Section</div></div><div class="lead-y">2024–25</div></div>
+    <div class="lead-item"><div><div class="lead-r">Secretary — IEEE PES SBC, CET</div><div class="lead-o">$2,000 MDI funding &nbsp;&#183;&nbsp; 80% membership growth</div></div><div class="lead-y">2023–24</div></div>
+    <div class="lead-item"><div><div class="lead-r">Magazine Design Lead — Rashomon 2024</div><div class="lead-o">Visual direction for the official CET college magazine</div></div><div class="lead-y">2024</div></div>
+    <div class="lead-item"><div><div class="lead-r">Design Lead — IEEE Smart Cities Social Media</div><div class="lead-o">Posters, digital media, print; IEEE brand compliance</div></div><div class="lead-y">2023–25</div></div>
   </div>
 </section>
 
-<hr class="full-divider">
-
-<!-- INTERESTS -->
-<section>
-  <div class="sec-header">
-    <span class="sec-label">05 / INTERESTS</span>
-    <div class="sec-line"></div>
-  </div>
-  <div class="int-grid">
-    <div class="int-cell">
-      <div class="int-icon">&#9672;</div>
-      <div class="int-name">Research</div>
-      <div class="int-sub">Attention mechanisms<br>Efficient transformers</div>
-    </div>
-    <div class="int-cell">
-      <div class="int-icon">&#9673;</div>
-      <div class="int-name">Writing</div>
-      <div class="int-sub">Medium essays<br>Personal blog</div>
-    </div>
-    <div class="int-cell">
-      <div class="int-icon">&#9643;</div>
-      <div class="int-name">Design</div>
-      <div class="int-sub">Graphic design<br>IEEE publications</div>
-    </div>
-    <div class="int-cell">
-      <div class="int-icon">&#9700;</div>
-      <div class="int-name">Control Systems</div>
-      <div class="int-sub">Modeling &amp; simulation<br>MATLAB</div>
-    </div>
-    <div class="int-cell">
-      <div class="int-icon">&#9711;</div>
-      <div class="int-name">Community</div>
-      <div class="int-sub">IEEE volunteering<br>Social teaching</div>
-    </div>
-  </div>
-</section>
-
-<hr class="full-divider">
+<hr class="dv">
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="sec-header">
-    <span class="sec-label">06 / CONTACT</span>
-    <div class="sec-line"></div>
-  </div>
+<section class="sec reveal" id="contact">
+  <div class="sec-hd"><span>05 &nbsp;/&nbsp; CONTACT</span></div>
   <span class="c-email">anvithavinod24@gmail.com</span>
-  <div class="contact-links">
+  <div class="c-links">
     <a class="c-link" href="https://linkedin.com/in/anvitha-vinod-08636425a" target="_blank">LINKEDIN &#8599;</a>
     <a class="c-link" href="https://github.com/anvithavinod24" target="_blank">GITHUB &#8599;</a>
+    <a class="c-link" href="https://medium.com/@anvithavinod24" target="_blank">MEDIUM &#8599;</a>
     <a class="c-link" href="mailto:anvithavinod24@gmail.com">EMAIL &#8599;</a>
   </div>
 </section>
 
 <footer>
   <span>&#169; 2026 Anvitha Vinod</span>
-  <span>CET &nbsp;&middot;&nbsp; IIT Madras &nbsp;&middot;&nbsp; Kerala</span>
+  <span>made with <span style="color:var(--acc)">&#10022;</span> in Kerala</span>
 </footer>
 
 <script>
-  const skills = [
-    "Python","PyTorch","MATLAB","Simulink","CUDA",
-    "Vision Transformers","PnP Nyström","SwinIR","ViT-B/16",
-    "Control Systems","Embedded Systems","Arduino","MicroPython",
-    "Figma","LaTeX","IEEE Volunteer","Image Restoration",
-    "Deep Learning","SQL","OpenCV","Photoshop"
-  ];
-  const track = document.getElementById('mt');
-  const all = [...skills,...skills,...skills,...skills];
-  track.innerHTML = all.map(s =>
-    `<span class="m-item"><span class="m-dot"></span>${s}</span>`
-  ).join('');
+const items=["Electrical Engineer","Graphic Designer","Writer","Reader","Vision Transformers","PnP Nyström","PyTorch","MATLAB","IEEE Volunteer","Figma","LaTeX","Deep Learning","Image Restoration","SwinIR","ViT-B/16","Photoshop","Medium Writer","CET Trivandrum","IIT Madras"];
+const mq=document.getElementById('mq');
+const all=[...items,...items,...items,...items];
+mq.innerHTML=all.map(s=>`<span class="mq-item"><span class="mq-dot"></span>${s}</span>`).join('');
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}})
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
