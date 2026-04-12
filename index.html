@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anvitha Vinod — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --g:#5dca91;--bg:#080808;--bg2:#0e0e0e;--bg3:#141414;
+    --t1:#ede8dc;--t2:#888;--t3:#444;--border:#1e1e1e;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--t2);min-height:100vh;overflow-x:hidden}
+
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.05) 3px,rgba(0,0,0,0.05) 4px);pointer-events:none;z-index:999}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,8,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+  .nav-id{font-size:12px;color:var(--g);letter-spacing:.15em}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{font-size:10px;color:var(--t3);text-decoration:none;letter-spacing:.12em;transition:color .2s}
+  .nav-links a:hover{color:var(--g)}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 2rem;max-width:900px;margin:0 auto}
+  .hero-pre{font-size:11px;color:var(--g);letter-spacing:.2em;margin-bottom:1.5rem;opacity:0;animation:fadeup .6s .2s forwards}
+  .hero-name{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,10vw,7rem);color:var(--t1);line-height:.95;letter-spacing:-.02em;opacity:0;animation:fadeup .6s .4s forwards}
+  .hero-name em{font-style:italic;color:var(--g)}
+  .hero-desc{font-size:12px;color:var(--t3);max-width:440px;line-height:1.9;margin-top:1.8rem;opacity:0;animation:fadeup .6s .6s forwards}
+  .hero-pills{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.5rem;opacity:0;animation:fadeup .6s .8s forwards}
+  .pill{font-size:9px;letter-spacing:.12em;border:1px solid var(--border);padding:5px 12px;color:var(--t3);transition:all .2s;cursor:default}
+  .pill:hover{border-color:var(--g);color:var(--g)}
+  .hero-prompt{margin-top:2.5rem;font-size:12px;color:var(--g);display:flex;align-items:center;gap:.4rem;opacity:0;animation:fadeup .6s 1s forwards}
+  .cursor{display:inline-block;width:8px;height:14px;background:var(--g);animation:blink 1s step-end infinite;vertical-align:middle}
+  @keyframes blink{50%{opacity:0}}
+  @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+  section{padding:5rem 2rem;max-width:900px;margin:0 auto}
+  .sec-header{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem}
+  .sec-label{font-size:10px;color:var(--g);letter-spacing:.2em;white-space:nowrap}
+  .sec-line{flex:1;height:1px;background:var(--border)}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--border)}
+  .about-cell{padding:1.4rem;background:var(--bg2)}
+  .about-cell.full{grid-column:1/-1;border-bottom:1px solid var(--border)}
+  .cell-label{font-size:9px;color:var(--g);letter-spacing:.15em;margin-bottom:.6rem}
+  .cell-val{font-size:12px;color:var(--t1);line-height:1.8}
+  .cell-val.muted{color:var(--t2);font-size:11px}
+
+  .ach-list{border:1px solid var(--border)}
+  .ach-item{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--border);transition:background .2s;cursor:default}
+  .ach-item:last-child{border-bottom:none}
+  .ach-item:hover{background:var(--bg3)}
+  .ach-year{padding:1.1rem 1rem;font-size:10px;color:var(--g);border-right:1px solid var(--border);display:flex;align-items:flex-start;padding-top:1.15rem;letter-spacing:.08em}
+  .ach-body{padding:1rem 1.2rem}
+  .ach-title{font-size:12px;color:var(--t1);margin-bottom:3px;line-height:1.4}
+  .ach-sub{font-size:10px;color:var(--t3);line-height:1.6}
+
+  .research-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;border:1px solid var(--border)}
+  .r-card{padding:1.4rem;background:var(--bg2);border-right:1px solid var(--border);transition:background .2s;cursor:default}
+  .r-card:last-child{border-right:none}
+  .r-card:hover{background:var(--bg3)}
+  .r-tag{font-size:9px;color:var(--g);letter-spacing:.15em;margin-bottom:.7rem}
+  .r-title{font-size:12px;color:var(--t1);margin-bottom:.5rem;line-height:1.5}
+  .r-desc{font-size:11px;color:var(--t3);line-height:1.7}
+
+  .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.8rem 0;overflow:hidden}
+  .marquee-track{display:flex;gap:2.5rem;width:max-content;animation:marquee 22s linear infinite}
+  .marquee-track:hover{animation-play-state:paused}
+  .m-item{font-size:10px;color:var(--t3);letter-spacing:.1em;display:flex;align-items:center;gap:.5rem;white-space:nowrap}
+  .m-dot{width:4px;height:4px;background:var(--g);border-radius:50%;flex-shrink:0}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  .lead-list{border:1px solid var(--border)}
+  .lead-item{display:grid;grid-template-columns:1fr auto;align-items:start;padding:1rem 1.2rem;border-bottom:1px solid var(--border);gap:1rem;transition:background .2s;cursor:default}
+  .lead-item:last-child{border-bottom:none}
+  .lead-item:hover{background:var(--bg3)}
+  .lead-role{font-size:12px;color:var(--t1);margin-bottom:3px}
+  .lead-org{font-size:10px;color:var(--t3)}
+  .lead-period{font-size:10px;color:var(--g);white-space:nowrap;text-align:right;padding-top:2px}
+
+  .int-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;border:1px solid var(--border)}
+  .int-cell{padding:1.4rem 1rem;background:var(--bg2);text-align:center;transition:background .2s;cursor:default}
+  .int-cell:hover{background:var(--bg3)}
+  .int-icon{font-size:16px;margin-bottom:.5rem;color:var(--g)}
+  .int-name{font-size:11px;color:var(--t1);margin-bottom:3px}
+  .int-sub{font-size:10px;color:var(--t3);line-height:1.5}
+
+  .contact-links{display:flex;gap:.8rem;flex-wrap:wrap}
+  .c-link{font-size:10px;letter-spacing:.1em;border:1px solid var(--border);padding:8px 18px;color:var(--t3);text-decoration:none;transition:all .2s}
+  .c-link:hover{color:var(--g);border-color:var(--g)}
+  .c-email{font-size:12px;color:var(--t3);margin-bottom:1.2rem;display:block}
+
+  footer{border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--t3);letter-spacing:.08em;max-width:100%}
+  .full-divider{border:none;border-top:1px solid var(--border)}
+
+  @media(max-width:600px){
+    .nav-links{gap:1rem}
+    .about-grid{grid-template-columns:1fr}
+    .about-cell.full{grid-column:1}
+    .about-cell{border-bottom:1px solid var(--border)}
+    footer{flex-direction:column;gap:.5rem;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-id">anvitha@vinod:~$</span>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#research">research</a></li>
+    <li><a href="#achievements">achievements</a></li>
+    <li><a href="#leadership">leadership</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pre">// Kerala, India &nbsp;&middot;&nbsp; CET &nbsp;&middot;&nbsp; IIT Madras</div>
+  <div class="hero-name">Anvitha<br><em>Vinod</em></div>
+  <div class="hero-desc">Final-year EEE student at CET. Research intern at IIT Madras working on efficient transformer architectures and attention approximation. GPA&nbsp;9.74.</div>
+  <div class="hero-pills">
+    <span class="pill">VISION TRANSFORMERS</span>
+    <span class="pill">CONTROL SYSTEMS</span>
+    <span class="pill">IEEE VOLUNTEER</span>
+    <span class="pill">WRITER</span>
+    <span class="pill">GRAPHIC DESIGN</span>
+    <span class="pill">EMBEDDED SYSTEMS</span>
+  </div>
+  <div class="hero-prompt">anvitha@research:~$ ./portfolio.sh<span class="cursor"></span></div>
+</div>
+
+<hr class="full-divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-header">
+    <span class="sec-label">01 / ABOUT</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-cell full">
+      <div class="cell-label">BIO</div>
+      <div class="cell-val muted">B.Tech Electrical &amp; Electronics Engineering, College of Engineering Trivandrum (2022–2026), with Minors in Computer Science. Research intern at IIT Madras exploring computationally efficient transformer architectures — specifically Plug-and-Play Nyström Attention — for image restoration and super-resolution. At the intersection of control systems, deep learning, and intelligent automation.</div>
+    </div>
+    <div class="about-cell" style="border-right:1px solid var(--border)">
+      <div class="cell-label">EDUCATION</div>
+      <div class="cell-val">CET Trivandrum<br><span style="color:var(--t3);font-size:11px">B.Tech EEE + CS Minor · 2022–2026</span><br><span style="color:var(--g);font-size:11px;margin-top:4px;display:block">GPA: 9.74 / 10</span></div>
+    </div>
+    <div class="about-cell">
+      <div class="cell-label">STACK</div>
+      <div class="cell-val" style="font-size:11px;color:var(--t3);line-height:2">Python &nbsp;·&nbsp; PyTorch &nbsp;·&nbsp; MATLAB<br>Simulink &nbsp;·&nbsp; CUDA &nbsp;·&nbsp; LaTeX<br>Arduino &nbsp;·&nbsp; Figma &nbsp;·&nbsp; SQL</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="mt"></div>
+</div>
+
+<hr class="full-divider">
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="sec-header">
+    <span class="sec-label">02 / RESEARCH &amp; PROJECTS</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="research-cards">
+    <div class="r-card">
+      <div class="r-tag">ONGOING &middot; IIT MADRAS</div>
+      <div class="r-title">PnP Nyström Attention — Transformer Efficiency</div>
+      <div class="r-desc">Plug-and-Play Nyström Attention as a drop-in for softmax attention in ViT/SwinIR. Focus on memory-efficient image super-resolution and denoising for edge deployment.</div>
+    </div>
+    <div class="r-card">
+      <div class="r-tag">2025 &middot; SUMMER FELLOWSHIP</div>
+      <div class="r-title">SwinIR Training Pipeline with PnP Nyström</div>
+      <div class="r-desc">Built reproducible PyTorch training &amp; evaluation pipelines; PSNR/SSIM-oriented benchmarking. Modular JSON configs, TensorBoard tracking, ablation protocols.</div>
+    </div>
+    <div class="r-card">
+      <div class="r-tag">FINAL YEAR PROJECT</div>
+      <div class="r-title">Autonomous Gourd Harvesting Rover</div>
+      <div class="r-desc">Pure Pursuit + heading control for path tracking. ML vision model for gourd maturity detection from color/texture. MATLAB/Simulink + Python simulation stack.</div>
+    </div>
+    <div class="r-card">
+      <div class="r-tag">EMBEDDED</div>
+      <div class="r-title">ANPR Gate System &amp; IoT Monitor</div>
+      <div class="r-desc">OpenCV-based number plate recognition with ESP32 relay control. Battery &amp; environment telemetry over Wi-Fi with low-power firmware (deep sleep, duty cycling).</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="sec-header">
+    <span class="sec-label">03 / ACHIEVEMENTS</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="ach-list">
+    <div class="ach-item">
+      <div class="ach-year">OCT 2025</div>
+      <div class="ach-body">
+        <div class="ach-title">Best WiE Team — IEEE R10 Innovation Challenge</div>
+        <div class="ach-sub">Kota Kinabalu, Malaysia &nbsp;&middot;&nbsp; Presented AIRAFEMM, AI-powered menstrual health tracking app</div>
+      </div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-year">AUG 2025</div>
+      <div class="ach-body">
+        <div class="ach-title">IEEE YESIST12 — Global Finalist (WePOWER Track)</div>
+        <div class="ach-sub">Top 30 teams worldwide &nbsp;&middot;&nbsp; UKM Bangi, Malaysia &nbsp;&middot;&nbsp; Solar-Powered Agricultural Monitoring System</div>
+      </div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-year">JUL 2025</div>
+      <div class="ach-body">
+        <div class="ach-title">Parent–Teacher Association Award — First Rank, 2nd Year EEE</div>
+        <div class="ach-sub">College of Engineering Trivandrum &nbsp;&middot;&nbsp; Department topper</div>
+      </div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-year">APR 2025</div>
+      <div class="ach-body">
+        <div class="ach-title">Prof. Jaijith Memorial Endowment (CETAA Award)</div>
+        <div class="ach-sub">Highest aggregate up to 4th semester in EEE, no backlogs</div>
+      </div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-year">DEC 2024</div>
+      <div class="ach-body">
+        <div class="ach-title">Outstanding Volunteer Award — IEEE Smart Cities SMC</div>
+        <div class="ach-sub">Recognized for impactful design and IEEE brand compliance</div>
+      </div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-year">OCT 2024</div>
+      <div class="ach-body">
+        <div class="ach-title">1st Place — Business Proposal, Young Idea Conclave (IEDC CET)</div>
+        <div class="ach-sub">Disaster-management solution and campaign</div>
+      </div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-year">MAR 2024</div>
+      <div class="ach-body">
+        <div class="ach-title">Empower Women Entrepreneurship Workshop — VSSC &amp; ISRO IISU</div>
+        <div class="ach-sub">Top 8 nationwide &nbsp;&middot;&nbsp; Presented AeroGreenHarvest for plant-disease management</div>
+      </div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-year">DEC 2023</div>
+      <div class="ach-body">
+        <div class="ach-title">Allianz Tech Championship — Winner (Top 8 nationally)</div>
+        <div class="ach-sub">Gamified sustainability app &nbsp;&middot;&nbsp; £5,000 scholarship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="sec-header">
+    <span class="sec-label">04 / LEADERSHIP</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="lead-list">
+    <div class="lead-item">
+      <div>
+        <div class="lead-role">Chairperson, IEEE Student Branch CET</div>
+        <div class="lead-org">Led technical excellence, research, and innovation initiatives</div>
+      </div>
+      <div class="lead-period">2025–2026</div>
+    </div>
+    <div class="lead-item">
+      <div>
+        <div class="lead-role">Women in Power Student Rep — IEEE PES Kerala Chapter</div>
+        <div class="lead-org">Promoted women in engineering; organized section-level events</div>
+      </div>
+      <div class="lead-period">2025–2026</div>
+    </div>
+    <div class="lead-item">
+      <div>
+        <div class="lead-role">Chairperson — IEEE PES Student Branch Chapter, CET</div>
+        <div class="lead-org">Outstanding SBC Award &nbsp;&middot;&nbsp; 34% membership growth &nbsp;&middot;&nbsp; IEEE PES Solar Schools initiative</div>
+      </div>
+      <div class="lead-period">2024–2025</div>
+    </div>
+    <div class="lead-item">
+      <div>
+        <div class="lead-role">Student Rep, Travancore Hub — IEEE PES Kerala Chapter</div>
+        <div class="lead-org">Fostered collaboration across student branches at Kerala Section</div>
+      </div>
+      <div class="lead-period">2024–2025</div>
+    </div>
+    <div class="lead-item">
+      <div>
+        <div class="lead-role">Secretary — IEEE PES Student Branch Chapter, CET</div>
+        <div class="lead-org">$2,000 MDI funding secured &nbsp;&middot;&nbsp; 80% membership growth</div>
+      </div>
+      <div class="lead-period">2023–2024</div>
+    </div>
+    <div class="lead-item">
+      <div>
+        <div class="lead-role">Magazine Design Lead — Rashomon 2024, CET</div>
+        <div class="lead-org">Visual design for the official college magazine</div>
+      </div>
+      <div class="lead-period">2024</div>
+    </div>
+    <div class="lead-item">
+      <div>
+        <div class="lead-role">Design Lead — IEEE Smart Cities Social Media Committee</div>
+        <div class="lead-org">Visual content creation for digital and print media; IEEE brand compliance</div>
+      </div>
+      <div class="lead-period">2023–2025</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- INTERESTS -->
+<section>
+  <div class="sec-header">
+    <span class="sec-label">05 / INTERESTS</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="int-grid">
+    <div class="int-cell">
+      <div class="int-icon">&#9672;</div>
+      <div class="int-name">Research</div>
+      <div class="int-sub">Attention mechanisms<br>Efficient transformers</div>
+    </div>
+    <div class="int-cell">
+      <div class="int-icon">&#9673;</div>
+      <div class="int-name">Writing</div>
+      <div class="int-sub">Medium essays<br>Personal blog</div>
+    </div>
+    <div class="int-cell">
+      <div class="int-icon">&#9643;</div>
+      <div class="int-name">Design</div>
+      <div class="int-sub">Graphic design<br>IEEE publications</div>
+    </div>
+    <div class="int-cell">
+      <div class="int-icon">&#9700;</div>
+      <div class="int-name">Control Systems</div>
+      <div class="int-sub">Modeling &amp; simulation<br>MATLAB</div>
+    </div>
+    <div class="int-cell">
+      <div class="int-icon">&#9711;</div>
+      <div class="int-name">Community</div>
+      <div class="int-sub">IEEE volunteering<br>Social teaching</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-header">
+    <span class="sec-label">06 / CONTACT</span>
+    <div class="sec-line"></div>
+  </div>
+  <span class="c-email">anvithavinod24@gmail.com</span>
+  <div class="contact-links">
+    <a class="c-link" href="https://linkedin.com/in/anvitha-vinod-08636425a" target="_blank">LINKEDIN &#8599;</a>
+    <a class="c-link" href="https://github.com/anvithavinod24" target="_blank">GITHUB &#8599;</a>
+    <a class="c-link" href="mailto:anvithavinod24@gmail.com">EMAIL &#8599;</a>
+  </div>
+</section>
+
+<footer>
+  <span>&#169; 2026 Anvitha Vinod</span>
+  <span>CET &nbsp;&middot;&nbsp; IIT Madras &nbsp;&middot;&nbsp; Kerala</span>
+</footer>
+
+<script>
+  const skills = [
+    "Python","PyTorch","MATLAB","Simulink","CUDA",
+    "Vision Transformers","PnP Nyström","SwinIR","ViT-B/16",
+    "Control Systems","Embedded Systems","Arduino","MicroPython",
+    "Figma","LaTeX","IEEE Volunteer","Image Restoration",
+    "Deep Learning","SQL","OpenCV","Photoshop"
+  ];
+  const track = document.getElementById('mt');
+  const all = [...skills,...skills,...skills,...skills];
+  track.innerHTML = all.map(s =>
+    `<span class="m-item"><span class="m-dot"></span>${s}</span>`
+  ).join('');
+</script>
+</body>
+</html>
