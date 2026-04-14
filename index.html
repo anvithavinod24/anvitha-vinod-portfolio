@@ -470,15 +470,26 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-siz
   const el = document.getElementById('tw-text');
   const sub = document.getElementById('tw-sub');
   const overlay = document.getElementById('tw-overlay');
-  let i = 0;
+  let i = 0, done = false;
+
+  function dismiss(){
+    if(done) return;
+    done = true;
+    sub.classList.add('show');
+    setTimeout(() => { overlay.classList.add('gone'); }, 800);
+  }
+
+  // Hard fallback: if overlay is still visible after 5s, force dismiss
+  setTimeout(dismiss, 5000);
+
   function type(){
+    if(done) return;
     if(i <= phrase.length){
       el.innerHTML = phrase.slice(0, i) + '<span class="tw-cursor"></span>';
       i++;
       setTimeout(type, 38 + Math.random() * 28);
     } else {
-      sub.classList.add('show');
-      setTimeout(() => { overlay.classList.add('gone'); }, 1100);
+      dismiss();
     }
   }
   setTimeout(type, 320);
