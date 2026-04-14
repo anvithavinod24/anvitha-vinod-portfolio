@@ -201,21 +201,41 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-siz
   letter-spacing:.02em
 }
 
-@media(max-width:680px){
-  .hero{grid-template-columns:1fr;min-height:auto;padding-top:5rem}
-  .hero-photo-col{height:auto;padding:1.5rem 1.5rem 0}
-  .photo-frame{width:220px}
-  .hero-text-col{padding:1.5rem}
-  .s1,.s2,.s3,.s4{display:none}
-  .about-wrap{grid-template-columns:1fr}
-  .bento{grid-template-columns:1fr 1fr}
-  .bento-card.wide,.bento-card.tall{grid-column:1;grid-row:auto}
-  .contact-wrap{grid-template-columns:1fr}
-  .sec{padding:3.5rem 1.5rem}
+/* ─── TYPEWRITER INTRO ─── */
+.tw-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;
+  transition:opacity .7s ease, visibility .7s ease
 }
+.tw-overlay.gone{opacity:0;visibility:hidden;pointer-events:none}
+.tw-line{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:clamp(1.2rem,3.5vw,2rem);
+  color:var(--cream);letter-spacing:.04em;
+  min-height:1.4em;text-align:center;padding:0 2rem
+}
+.tw-cursor{
+  display:inline-block;width:2px;height:1em;
+  background:var(--acc);vertical-align:middle;margin-left:3px;
+  animation:blink 0.7s step-end infinite
+}
+.tw-sub{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.2em;color:var(--rose);
+  opacity:0;transition:opacity .5s
+}
+.tw-sub.show{opacity:1}
 </style>
 </head>
 <body>
+
+<!-- TYPEWRITER OVERLAY -->
+<div class="tw-overlay" id="tw-overlay">
+  <div class="tw-line" id="tw-text"><span class="tw-cursor"></span></div>
+  <div class="tw-sub" id="tw-sub">— mischief managed</div>
+</div>
 
 <!-- floating decorations -->
 <div class="deco deco-star" style="top:18%;left:6%;font-size:1.2rem">✦</div>
@@ -524,6 +544,31 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-siz
 </footer>
 
 <script>
+// ── TYPEWRITER INTRO ──
+(function(){
+  const phrase = '\u201cI solemnly swear that I am up to no good\u201d';
+  const el = document.getElementById('tw-text');
+  const sub = document.getElementById('tw-sub');
+  const overlay = document.getElementById('tw-overlay');
+  let i = 0;
+  // type character by character
+  function type(){
+    if(i <= phrase.length){
+      el.innerHTML = phrase.slice(0, i) + '<span class="tw-cursor"></span>';
+      i++;
+      // slightly random speed feels more human
+      setTimeout(type, 38 + Math.random() * 28);
+    } else {
+      // finished typing — show sub, pause, then fade out
+      sub.classList.add('show');
+      setTimeout(() => {
+        overlay.classList.add('gone');
+      }, 1100);
+    }
+  }
+  // small delay before starting so fonts load
+  setTimeout(type, 320);
+})();
 const bands = [
   "electrical engineer","graphic designer","writer","reader","✦","researcher","IEEE volunteer","✧","vision transformers","PnP Nyström","IIT Madras","CET","magic & chaos","✦"
 ];
